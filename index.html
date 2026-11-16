@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Visualizador de Algoritmos | Sophia Akemi</title>
+    <meta name="description" content="Veja passo a passo como algoritmos de ordenação e de busca de caminhos funcionam." />
+    <meta name="theme-color" content="#10131a" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="wrap top">
+      <div>
+        <p class="eyebrow">// algoritmos</p>
+        <h1>Visualizador de Algoritmos</h1>
+        <p class="sub">Veja, passo a passo, como algoritmos clássicos ordenam dados e encontram caminhos.</p>
+      </div>
+      <div class="tabs" role="tablist" aria-label="Tipo de algoritmo">
+        <button class="tab" role="tab" id="tab-sort" aria-controls="panel-sort" aria-selected="true">Ordenação</button>
+        <button class="tab" role="tab" id="tab-path" aria-controls="panel-path" aria-selected="false" tabindex="-1">Caminhos</button>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <section class="panel" id="panel-sort" role="tabpanel" aria-labelledby="tab-sort">
+        <div class="toolbar">
+          <label class="field">
+            <span>Algoritmo</span>
+            <select id="sort-algo"></select>
+          </label>
+          <label class="field">
+            <span>Tamanho <output id="sort-size-out" for="sort-size">40</output></span>
+            <input type="range" id="sort-size" min="8" max="120" value="40" />
+          </label>
+          <label class="field">
+            <span>Velocidade</span>
+            <input type="range" id="sort-speed" min="1" max="10" value="5" />
+          </label>
+          <div class="buttons">
+            <button class="btn btn--primary" id="sort-play">Iniciar</button>
+            <button class="btn" id="sort-step">Passo</button>
+            <button class="btn" id="sort-shuffle">Novo vetor</button>
+          </div>
+        </div>
+
+        <div class="stage">
+          <canvas id="sort-canvas" role="img" aria-label="Barras que representam o vetor sendo ordenado"></canvas>
+        </div>
+
+        <ul class="legend" aria-label="Legenda">
+          <li><i style="--c: var(--mint)"></i>comparando</li>
+          <li><i style="--c: var(--pink)"></i>trocando</li>
+          <li><i style="--c: var(--sorted)"></i>na posição final</li>
+        </ul>
+
+        <div class="details">
+          <dl class="stats">
+            <div><dt>Comparações</dt><dd id="sort-compares">0</dd></div>
+            <div><dt>Trocas e escritas</dt><dd id="sort-writes">0</dd></div>
+            <div><dt>Status</dt><dd id="sort-status" aria-live="polite">Pronto</dd></div>
+          </dl>
+          <article class="info" id="sort-info"></article>
+        </div>
+      </section>
+
+      <section class="panel" id="panel-path" role="tabpanel" aria-labelledby="tab-path" hidden>
+        <div class="toolbar">
+          <label class="field">
+            <span>Algoritmo</span>
+            <select id="path-algo"></select>
+          </label>
+          <div class="field">
+            <span id="tool-label">Desenhar</span>
+            <div class="segmented" role="group" aria-labelledby="tool-label">
+              <button class="seg" data-tool="wall" aria-pressed="true">Parede</button>
+              <button class="seg" data-tool="weight" aria-pressed="false">Terreno ×5</button>
+              <button class="seg" data-tool="erase" aria-pressed="false">Borracha</button>
+            </div>
+          </div>
+          <label class="field">
+            <span>Velocidade</span>
+            <input type="range" id="path-speed" min="1" max="10" value="6" />
+          </label>
+          <div class="buttons">
+            <button class="btn btn--primary" id="path-play">Iniciar</button>
+            <button class="btn" id="path-maze">Gerar labirinto</button>
+            <button class="btn" id="path-clear">Limpar</button>
+          </div>
+        </div>
+
+        <p class="hint">Clique e arraste na grade para desenhar. Arraste o início e o fim para mudá-los de lugar.</p>
+
+        <div class="stage">
+          <canvas id="path-canvas" role="img" aria-label="Grade com início, fim, paredes e o caminho encontrado"></canvas>
+        </div>
+
+        <ul class="legend" aria-label="Legenda">
+          <li><i style="--c: var(--mint)"></i>início</li>
+          <li><i class="ring"></i>fim</li>
+          <li><i style="--c: var(--wall)"></i>parede</li>
+          <li><i class="dot"></i>terreno pesado (custa 5)</li>
+          <li><i style="--c: rgba(94, 234, 212, 0.25)"></i>visitada</li>
+          <li><i style="--c: var(--pink)"></i>caminho</li>
+        </ul>
+
+        <div class="details">
+          <dl class="stats">
+            <div><dt>Células visitadas</dt><dd id="path-visited">0</dd></div>
+            <div><dt>Passos</dt><dd id="path-length">0</dd></div>
+            <div><dt>Custo</dt><dd id="path-cost">0</dd></div>
+            <div><dt>Status</dt><dd id="path-status" aria-live="polite">Pronto</dd></div>
+          </dl>
+          <article class="info" id="path-info"></article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="wrap footer">
+      <span>Feito por <a href="https://sophiaakemi-portfolio.vercel.app">Sophia Akemi</a></span>
+      <a href="https://github.com/sosoakemi/visualizador-algoritmos">código no GitHub</a>
+    </footer>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
