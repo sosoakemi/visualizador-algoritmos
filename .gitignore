@@ -1,3 +1,5 @@
 node_modules/
 dist/
 GUIA-DE-ESTUDO.md
+.vercel
+.env*

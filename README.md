@@ -4,6 +4,8 @@
 
 Site interativo que mostra, passo a passo, como algoritmos clássicos funcionam.
 
+**Acesse:** https://visualizador-algoritmos.vercel.app
+
 - **Ordenação:** Bubble, Insertion, Selection, Merge e Quick Sort, com contagem de comparações e trocas e a complexidade de cada um.
 - **Caminhos:** BFS, DFS, Dijkstra e A* em uma grade onde você desenha paredes e terreno pesado, ou gera um labirinto.
 
